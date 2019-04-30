@@ -37,6 +37,8 @@ group :development, :test do
   gem 'csv'
   gem 'faker'
   gem 'fast_jsonapi'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov'
 end
 
 group :development do
