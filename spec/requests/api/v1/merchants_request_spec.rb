@@ -39,6 +39,18 @@ describe 'Merchant API' do
     expect(merchant["name"]).to eq(amazon.name)
   end
 
+  it 'can find a single merchant by id param' do
+    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
+    id_search = "id=#{amazon.id}"
+
+    get "/api/v1/merchants/find?#{id_search}"
+
+    expect(response).to be_successful
+    
+    merchant = JSON.parse(response.body)
+    expect(merchant["id"]).to eq(amazon.id)
+  end
+
 end
 
 # mom_pop = create(:merchant, name:"Mom & Pop", created_at: 8.days.ago, updated_at: 2.days.ago)
