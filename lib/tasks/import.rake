@@ -45,4 +45,4 @@ namespace :import do
   end
 end
 
-# rake import:{customer,merchant,invoice,item,invoiceitem,transaction}
+# rake import:{customer,merchant,invoice,item,invoice_item,transaction}
