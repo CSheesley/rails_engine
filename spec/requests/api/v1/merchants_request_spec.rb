@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Merchant API' do
 
-  it 'sends a list of merchants' do
+  xit 'sends a list of merchants' do
     create_list(:merchant, 3)
 
     get "/api/v1/merchants"
@@ -11,10 +11,10 @@ describe 'Merchant API' do
 
     merchants = JSON.parse(response.body)
 
-    expect(merchants.count).to eq(3)
+    expect(merchants["data"].count).to eq(3)
   end
 
-  it 'can get a single merchant by id' do
+  xit 'can get a single merchant by id' do
     id = create(:merchant).id
 
     get "/api/v1/merchants/#{id}"
@@ -23,32 +23,41 @@ describe 'Merchant API' do
 
     expect(response).to be_successful
 
-    expect(merchant["id"]).to eq(id)
+    expect(merchant["data"]["attributes"]["id"]).to eq(id)
   end
 
-  it 'can find a single merchant by name param' do
+  xit 'can find a single merchant by name param' do
     amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
-    name_search = "name=#{amazon.name}"
 
-    get "/api/v1/merchants/find?#{name_search}"
+    get "/api/v1/merchants/find?name=#{amazon.name}"
+
+    expect(response).to be_successful
+
+    merchant = JSON.parse(response.body)
+    expect(merchant["data"]["attributes"]["name"]).to eq(amazon.name)
+  end
+
+  xit 'can find a single merchant by id param' do
+    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
+
+    get "/api/v1/merchants/find?id=#{amazon.id}"
+
+    expect(response).to be_successful
+
+    merchant = JSON.parse(response.body)
+    expect(merchant["data"]["attributes"]["id"]).to eq(amazon.id)
+  end
+
+  xit 'can find a single merchant by date created at' do
+    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
+
+    get "/api/v1/merchants/find?created_at=#{amazon.created_at}"
 
     expect(response).to be_successful
 
     merchant = JSON.parse(response.body)
 
-    expect(merchant["name"]).to eq(amazon.name)
-  end
-
-  it 'can find a single merchant by id param' do
-    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
-    id_search = "id=#{amazon.id}"
-
-    get "/api/v1/merchants/find?#{id_search}"
-
-    expect(response).to be_successful
-    
-    merchant = JSON.parse(response.body)
-    expect(merchant["id"]).to eq(amazon.id)
+    expect(merchant["data"]["attributes"]["created_at"]).to eq(amazon.created_at)
   end
 
 end
