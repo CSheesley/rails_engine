@@ -7,5 +7,9 @@ class Api::V1::Merchants::SearchController < ApplicationController
     render json: MerchantSerializer.new(Merchant.find_by_updated_at(params[:updated_at])) if params[:updated_at].present?
   end
 
+ def index
+   # binding.pry
+   render json: MerchantSerializer.new(Merchant.where(id: params[:id])) if params[:id].present?
+ end
 
 end

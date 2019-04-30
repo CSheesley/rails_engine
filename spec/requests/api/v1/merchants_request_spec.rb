@@ -27,7 +27,7 @@ describe 'Merchant API' do
   end
 
   it 'can find a single merchant by name param' do
-    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
+    amazon = create(:merchant, name:"Amazon")
 
     get "/api/v1/merchants/find?name=#{amazon.name}"
 
@@ -38,7 +38,7 @@ describe 'Merchant API' do
   end
 
   it 'can find a single merchant by id param' do
-    amazon = create(:merchant, name:"Amazon", created_at: 3.days.ago, updated_at: 2.days.ago)
+    amazon = create(:merchant, name:"Amazon")
 
     get "/api/v1/merchants/find?id=#{amazon.id}"
 
@@ -49,7 +49,6 @@ describe 'Merchant API' do
   end
 
   it 'can find a single merchant by date created at' do
-    created_at = "2012-03-27T14:54:05.000Z"
     amazon = create(:merchant, name:"Amazon", created_at: "2012-03-27T14:54:05.000Z", updated_at: 2.days.ago)
 
     get "/api/v1/merchants/find?created_at=#{amazon.created_at}"
@@ -62,8 +61,7 @@ describe 'Merchant API' do
   end
 
   it 'can find a single merchant by date updated at' do
-    updated_at = "2012-03-27T14:54:05.000Z"
-    amazon = create(:merchant, name:"Amazon", created_at: 8.days.ago, updated_at: updated_at)
+    amazon = create(:merchant, name:"Amazon", created_at: 8.days.ago, updated_at: "2012-03-27T14:54:05.000Z")
 
     get "/api/v1/merchants/find?updated_at=#{amazon.updated_at}"
 
@@ -72,6 +70,22 @@ describe 'Merchant API' do
     merchant = JSON.parse(response.body)
 
     expect(merchant["data"]["attributes"]["name"]).to eq(amazon.name)
+  end
+##########
+
+  it 'can find all merchants by id param' do
+    amazon = create(:merchant, name:"Amazon")
+    ebay = create(:merchant, name:"eBay")
+    etsy = create(:merchant, name:"Etsy")
+
+    get "/api/v1/merchants/find_all?id=#{ebay.id}"
+
+    expect(response).to be_successful
+    
+    merchant = JSON.parse(response.body)
+    expected = merchant["data"].first["attributes"]["name"]
+
+    expect(expected).to eq(ebay.name)
   end
 
 end
