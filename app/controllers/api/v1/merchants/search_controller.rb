@@ -9,6 +9,9 @@ class Api::V1::Merchants::SearchController < ApplicationController
 
  def index
    render json: MerchantSerializer.new(Merchant.where(id: params[:id])) if params[:id].present?
+   render json: MerchantSerializer.new(Merchant.where(name: params[:name])) if params[:name].present?
+   render json: MerchantSerializer.new(Merchant.where(created_at: params[:created_at])) if params[:created_at].present?
+   render json: MerchantSerializer.new(Merchant.where(updated_at: params[:updated_at])) if params[:updated_at].present?
  end
 
 end
