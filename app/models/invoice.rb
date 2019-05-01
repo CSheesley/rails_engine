@@ -1,8 +1,9 @@
 class Invoice < ApplicationRecord
   belongs_to :customer
   belongs_to :merchant
-  has_one :invoice_item
   has_many :transactions
+  has_many :invoice_items
+  has_many :items, through: :invoice_items
 
   enum status: [:shipped, :not_shipped]
 end
