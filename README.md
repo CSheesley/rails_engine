@@ -14,9 +14,9 @@ Things you may want to cover:
   From your command line run:
   `bundle`
   `rake db:{drop,create,migrate}`
-  
+
   To populate our tables, run:
-  `rake import:{customer,merchant,invoice,item,invoiceitem,transaction}`
+  `rake import:{customer,merchant,invoice,item,invoice_item,transaction}`
 
 * Database creation
 
