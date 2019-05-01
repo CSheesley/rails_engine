@@ -10,5 +10,6 @@ class Merchant < ApplicationRecord
     .limit(count)
     # .joins(invoices: :transactions)
     # .where("transactions.result = ?", 0)
+    # .merge(Transaction.successful)
   end
 end
