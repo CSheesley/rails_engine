@@ -8,7 +8,6 @@ class Api::V1::Merchants::SearchController < ApplicationController
   end
 
  def index
-   # binding.pry
    render json: MerchantSerializer.new(Merchant.where(id: params[:id])) if params[:id].present?
  end
 
