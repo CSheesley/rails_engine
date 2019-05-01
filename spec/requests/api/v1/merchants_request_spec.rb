@@ -71,7 +71,7 @@ describe 'Merchant API' do
 
     expect(merchant["attributes"]["name"]).to eq(amazon.name)
   end
-##########
+
   it 'can find all merchants by id param' do
     amazon = create(:merchant, name:"Amazon")
     ebay = create(:merchant, name:"eBay")
@@ -104,6 +104,7 @@ describe 'Merchant API' do
 
   it 'can find all merchants by a created_at param' do
     created_at_param = "2012-03-27T14:54:05.000Z"
+
     amazon = create(:merchant, name:"Amazon", created_at: created_at_param )
     ebay = create(:merchant, name:"eBay", created_at: created_at_param )
     etsy = create(:merchant, name:"Etsy")
@@ -120,7 +121,8 @@ describe 'Merchant API' do
 
   it 'can find all merchants by a updated_at param' do
     updated_at_param = "2013-03-27T14:54:05.000Z"
-    amazon = create(:merchant, name:"Amazon", updated_at: updated_at_param )
+
+    amazon = create(:merchant, name:"Amazon", updated_at: updated_at_param)
     ebay = create(:merchant, name:"eBay")
     etsy = create(:merchant, name:"Etsy", updated_at: updated_at_param)
     craigslist = create(:merchant, name:"Craigslist", updated_at: updated_at_param)
@@ -133,6 +135,21 @@ describe 'Merchant API' do
 
     expect(merchants.class).to eq(Array)
     expect(merchants.count).to eq(3)
+  end
+
+  it 'can return a random merchant resource' do
+    amazon = create(:merchant, name:"Amazon")
+    ebay = create(:merchant, name:"eBay")
+    etsy = create(:merchant, name:"Etsy")
+
+    get "/api/v1/merchants/random"
+
+    expect(response).to be_successful
+
+    random_merchant = JSON.parse(response.body)["data"]
+
+    expect(random_merchant.class).to eq(Hash)
+    expect(random_merchant["attributes"].present?).to eq(true)
   end
 
 end
