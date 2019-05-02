@@ -25,31 +25,31 @@ describe 'Merchant API - Business Intelligence' do
     @invoice_item_1 = create(:invoice_item,
       item: @item_1,
       invoice: @invoice_1,
-      quantity: 5,
-      unit_price: 5.01)
+      quantity: 50,
+      unit_price: 51)
 
     @invoice_item_2 = create(:invoice_item,
       item: @item_2,
       invoice: @invoice_2,
-      quantity: 4,
-      unit_price: 4)
+      quantity: 40,
+      unit_price: 40)
 
     @invoice_item_3 = create(:invoice_item,
       item: @item_3,
       invoice: @invoice_3,
-      quantity: 2,
-      unit_price: 5)
+      quantity: 20,
+      unit_price: 50)
 
     @invoice_item_4 = create(:invoice_item,
       item: @item_4,
       invoice: @invoice_4,
-      quantity: 20,
-      unit_price: 5)
+      quantity: 200,
+      unit_price: 50)
   end
 
   it 'can get the top x number of merchants by total revenue' do
-
     quantity = 2
+
     get "/api/v1/merchants/most_revenue?quantity=#{quantity}"
 
     top_two_merchants = JSON.parse(response.body)["data"]
@@ -61,8 +61,8 @@ describe 'Merchant API - Business Intelligence' do
   end
 
   it 'can get the top x number of merchants by total items sold' do
-  # not passing spec harness
     quantity = 2
+
     get "/api/v1/merchants/most_items?quantity=#{quantity}"
 
     top_two_merchants = JSON.parse(response.body)["data"]
@@ -73,15 +73,15 @@ describe 'Merchant API - Business Intelligence' do
     expect(top_two_merchants.second["attributes"]["id"]).to eq(@merchant_1.id)
   end
 
-  xit 'can get total revenue for all merchants by a single date' do
-
+  it 'can get total revenue for all merchants by a single date' do
     date = "2012-03-16"
+
     get "/api/v1/merchants/revenue?date=#{date}"
 
     merchants = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(merchants["attributes"]["total_revenue"]).to eq(41.05)
+    expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
   end
 
 end
