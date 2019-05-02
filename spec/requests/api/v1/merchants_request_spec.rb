@@ -173,6 +173,20 @@ describe 'Merchant API' do
 
       expect(merchants_items.count).to eq(3)
     end
+
+    it 'can return a collection of invoices associated with a merchant' do
+      merchant = create(:merchant)
+      invoice_list = create_list(:invoice, 5, merchant_id: merchant.id)
+      other_invoice = create(:item)
+
+      get "/api/v1/merchants/#{merchant.id}/invoices"
+
+      expect(response).to be_successful
+
+      merchants_invoices = JSON.parse(response.body)["data"]
+
+      expect(merchants_invoices.count).to eq(5)
+    end
   end
 
 end
