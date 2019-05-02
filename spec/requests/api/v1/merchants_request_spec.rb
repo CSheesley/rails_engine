@@ -151,8 +151,10 @@ describe 'Merchant API' do
       expect(response).to be_successful
 
       random_merchant = JSON.parse(response.body)["data"]
+      unparsed = JSON.parse(response.body)
 
       expect(random_merchant.class).to eq(Hash)
+      expect(unparsed.count).to eq(1)
       expect(random_merchant["attributes"].present?).to eq(true)
     end
   end
