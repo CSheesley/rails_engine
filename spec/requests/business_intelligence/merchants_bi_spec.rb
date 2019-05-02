@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Merchant API - Business Intelligence' do
+describe 'All Merchants API - Business Intelligence' do
   before :each do
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)
@@ -82,6 +82,47 @@ describe 'Merchant API - Business Intelligence' do
 
     expect(response).to be_successful
     expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
+  end
+end
+
+describe 'Single Merchants API - Business Intelligence' do
+  before :each do
+    # do setup for a single merchant
+    # total revenue
+    # revenue on a day
+    # customer with most number of successful transactions
+  end
+
+  xit 'can get total revenue for a single merchant based on successful transactions' do
+
+    get "/api/v1/merchants/:id/revenue"
+
+    # merch_revenue = JSON.parse(response.body)["data"]
+    #
+    # expect(response).to be_successful
+    # expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
+  end
+
+  xit 'can get total revenue for a single merchant based on a specific invoice date' do
+    # date =
+
+    get "/api/v1/merchants/:id/revenue/date?=#{date}"
+
+    # merch_revenue = JSON.parse(response.body)["data"]
+    #
+    # expect(response).to be_successful
+    # expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
+  end
+
+  xit 'can return the merchants favorite customer: most successful transactions with merchants' do
+    # date =
+
+    get "/api/v1/merchants/:id/favorite_customer"
+
+    # merch_revenue = JSON.parse(response.body)["data"]
+    #
+    # expect(response).to be_successful
+    # expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
   end
 
 end
