@@ -20,5 +20,4 @@ class Merchant < ApplicationRecord
     .limit(quantity)
   end
 
-
 end
