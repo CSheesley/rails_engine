@@ -29,8 +29,7 @@ describe 'Merchant API' do
     it 'can find a single merchant by name param' do
       amazon = create(:merchant, name:"Amazon")
 
-      # get "/api/v1/merchants/find?name=#{amazon.name}"
-      get "/api/v1/merchants/find?name=Amazon"
+      get "/api/v1/merchants/find?name=#{amazon.name}"
 
       expect(response).to be_successful
 
@@ -153,6 +152,22 @@ describe 'Merchant API' do
 
       expect(random_merchant.class).to eq(Hash)
       expect(random_merchant["attributes"].present?).to eq(true)
+    end
+  end
+
+  context 'relationships' do
+    it 'can return a collection of items associated with a merchant' do
+      merchant = create(:merchant)
+      item_list = create_list(:item, 3, merchant_id: merchant.id)
+      other_item = create(:item)
+
+      get "/api/v1/merchants/#{merchant.id}/items"
+
+      expect(response).to be_successful
+
+      merchants_items = JSON.parse(response.body)["data"]
+  
+      expect(merchants_items.count).to eq(3)
     end
   end
 
