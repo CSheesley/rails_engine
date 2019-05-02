@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Merchant API' do
-  context 'find' do
+  context 'index and show' do
     it 'sends a list of merchants' do
       create_list(:merchant, 3)
 
@@ -25,7 +25,9 @@ describe 'Merchant API' do
 
       expect(merchant["attributes"]["id"]).to eq(id)
     end
+  end
 
+  context 'find' do
     it 'can find a single merchant by name param' do
       amazon = create(:merchant, name:"Amazon")
 
@@ -166,7 +168,7 @@ describe 'Merchant API' do
       expect(response).to be_successful
 
       merchants_items = JSON.parse(response.body)["data"]
-  
+
       expect(merchants_items.count).to eq(3)
     end
   end

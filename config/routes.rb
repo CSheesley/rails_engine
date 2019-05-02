@@ -12,7 +12,17 @@ Rails.application.routes.draw do
         get "/:id/items", to: 'items#index'
       end
       resources :merchants, only: [:index, :show]
+
+      namespace :customers do
+        get "/find", to: 'search#show'
+        get "/find_all", to: 'search#index'
+        # get "/random", to: 'random#show'
+       # fav merchant
+      end
+      resources :customers, only: [:index, :show]
     end
   end
+
+
 
 end
