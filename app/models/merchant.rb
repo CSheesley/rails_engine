@@ -1,6 +1,4 @@
 class Merchant < ApplicationRecord
-  before_create :standardize_name
-
   has_many :items
   has_many :invoices
 
@@ -20,12 +18,6 @@ class Merchant < ApplicationRecord
     .group(:id)
     .order("total_sold DESC")
     .limit(quantity)
-  end
-
-private
-
-  def standardize_name
-    self.name = self.name.downcase
   end
 
 end

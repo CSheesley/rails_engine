@@ -28,9 +28,9 @@ describe 'Merchant API' do
 
     it 'can find a single merchant by name param' do
       amazon = create(:merchant, name:"Amazon")
-      binding.pry
+
       # get "/api/v1/merchants/find?name=#{amazon.name}"
-      get "/api/v1/merchants/find?name=amazon"
+      get "/api/v1/merchants/find?name=Amazon"
 
       expect(response).to be_successful
 
