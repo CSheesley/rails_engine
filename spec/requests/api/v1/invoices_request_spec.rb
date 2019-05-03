@@ -89,89 +89,109 @@ describe 'invoices API' do
     end
   end
 
-  # context 'find_all' do
-  #   it 'can find all invoicess by id param' do
-  #     amazon = create(:invoices, name:"Amazon")
-  #     ebay = create(:invoices, name:"eBay")
-  #     etsy = create(:invoices, name:"Etsy")
-  #
-  #     get "/api/v1/invoicess/find_all?id=#{ebay.id}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoices = JSON.parse(response.body)["data"]
-  #     expected = invoices.first["attributes"]["name"]
-  #
-  #     expect(expected).to eq(ebay.name)
-  #   end
-  #
-  #   it 'can find all invoicess by name param' do
-  #     amazon = create(:invoices, name:"Amazon")
-  #     ebay = create(:invoices, name:"eBay")
-  #     etsy = create(:invoices, name:"Etsy")
-  #
-  #     get "/api/v1/invoicess/find_all?name=#{etsy.name}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoices = JSON.parse(response.body)["data"]
-  #     expected = invoices.first["attributes"]["name"]
-  #
-  #     expect(expected).to eq(etsy.name)
-  #   end
-  #
-  #   it 'can find all invoicess by a created_at param' do
-  #     created_at_param = "2012-03-27T14:54:05.000Z"
-  #
-  #     amazon = create(:invoices, name:"Amazon", created_at: created_at_param )
-  #     ebay = create(:invoices, name:"eBay", created_at: created_at_param )
-  #     etsy = create(:invoices, name:"Etsy")
-  #
-  #     get "/api/v1/invoicess/find_all?created_at=#{created_at_param}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoicess = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoicess.class).to eq(Array)
-  #     expect(invoicess.count).to eq(2)
-  #   end
-  #
-  #   it 'can find all invoicess by a updated_at param' do
-  #     updated_at_param = "2013-03-27T14:54:05.000Z"
-  #
-  #     amazon = create(:invoices, name:"Amazon", updated_at: updated_at_param)
-  #     ebay = create(:invoices, name:"eBay")
-  #     etsy = create(:invoices, name:"Etsy", updated_at: updated_at_param)
-  #     craigslist = create(:invoices, name:"Craigslist", updated_at: updated_at_param)
-  #
-  #     get "/api/v1/invoicess/find_all?updated_at=#{updated_at_param}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoicess = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoicess.class).to eq(Array)
-  #     expect(invoicess.count).to eq(3)
-  #   end
-  #
-  #   it 'can return a random invoices resource' do
-  #     amazon = create(:invoices, name:"Amazon")
-  #     ebay = create(:invoices, name:"eBay")
-  #     etsy = create(:invoices, name:"Etsy")
-  #
-  #     get "/api/v1/invoicess/random"
-  #
-  #     expect(response).to be_successful
-  #
-  #     random_invoices = JSON.parse(response.body)["data"]
-  #     unparsed = JSON.parse(response.body)
-  #
-  #     expect(random_invoices.class).to eq(Hash)
-  #     expect(unparsed.count).to eq(1)
-  #     expect(random_invoices["attributes"].present?).to eq(true)
-  #   end
-  # end
+  context 'find_all' do
+    it 'can find all invoices by id param' do
+      invoice_1 = create(:invoice)
+      invoice_2 = create(:invoice)
+      invoice_3 = create(:invoice)
+
+      get "/api/v1/invoices/find_all?id=#{invoice_1.id}"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+      expected = invoices.first["attributes"]["id"]
+
+      expect(expected).to eq(invoice_1.id)
+    end
+
+    it 'can find all invoices by customer_id param' do
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+
+      invoice_1 = create(:invoice, customer_id: customer_1.id)
+      invoice_2 = create(:invoice, customer_id: customer_1.id)
+      invoice_3 = create(:invoice, customer_id: customer_2.id)
+
+      get "/api/v1/invoices/find_all?customer_id=#{customer_1.id}"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+      expected = invoices.first["attributes"]["customer_id"]
+
+      expect(expected).to eq(customer_1.id)
+    end
+
+    it 'can find all invoices by merchant_id param' do
+      merchant_1 = create(:merchant)
+      merchant_2 = create(:merchant)
+
+      invoice_1 = create(:invoice, merchant_id: merchant_1.id)
+      invoice_2 = create(:invoice, merchant_id: merchant_1.id)
+      invoice_3 = create(:invoice, merchant_id: merchant_2.id)
+
+      get "/api/v1/invoices/find_all?merchant_id=#{merchant_1.id}"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+      expected = invoices.first["attributes"]["merchant_id"]
+
+      expect(expected).to eq(merchant_1.id)
+    end
+
+    it 'can find all invoices by a created_at param' do
+      created_at_param = "2012-03-27T14:54:05.000Z"
+
+      invoice_1 = create(:invoice, created_at: created_at_param)
+      invoice_2 = create(:invoice, created_at: created_at_param)
+      invoice_3 = create(:invoice)
+
+      get "/api/v1/invoices/find_all?created_at=#{created_at_param}"
+
+      expect(response).to be_successful
+
+      invoicess = JSON.parse(response.body)["data"]
+
+      expect(invoicess.class).to eq(Array)
+      expect(invoicess.count).to eq(2)
+    end
+
+    it 'can find all invoices by a updated_at param' do
+      updated_at_param = "2012-03-27T14:54:05.000Z"
+
+      invoice_1 = create(:invoice, created_at: updated_at_param)
+      invoice_2 = create(:invoice, created_at: updated_at_param)
+      invoice_3 = create(:invoice)
+
+      get "/api/v1/invoices/find_all?created_at=#{updated_at_param}"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+
+      expect(invoices.class).to eq(Array)
+      expect(invoices.count).to eq(2)
+    end
+
+    it 'can return a random invoice resource' do
+      invoice_1 = create(:invoice)
+      invoice_2 = create(:invoice)
+      invoice_3 = create(:invoice)
+
+      get "/api/v1/invoices/random"
+
+      expect(response).to be_successful
+
+      unparsed = JSON.parse(response.body)
+      random_invoices = JSON.parse(response.body)["data"]
+
+      expect(unparsed.count).to eq(1)
+      expect(random_invoices.class).to eq(Hash)
+      expect(random_invoices["attributes"].present?).to eq(true)
+    end
+  end
   #
   # context 'relationships' do
   #   it 'can return a collection of items associated with a invoices' do

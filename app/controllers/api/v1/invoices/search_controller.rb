@@ -11,6 +11,7 @@ class Api::V1::Invoices::SearchController < ApplicationController
     key = params.keys.first
     value = params.values.first
 
-    render json: InvoiceSerializer.new(Invoice.where(key => value))
+    render json: InvoiceSerializer.new(Invoice.where(key => value).order(:id))
   end
+
 end
