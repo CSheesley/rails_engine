@@ -155,7 +155,7 @@ describe 'Single Merchants API - Business Intelligence' do
   xit 'can return the merchants favorite customer: most successful transactions with merchants' do
     # date =
 
-    get "/api/v1/merchants/:id/favorite_customer"
+    get "/api/v1/merchants/:id/favorite_customer_of"
 
     # merch_revenue = JSON.parse(response.body)["data"]
     #
