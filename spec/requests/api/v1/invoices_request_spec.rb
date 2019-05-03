@@ -175,6 +175,23 @@ describe 'invoices API' do
       expect(invoices.count).to eq(2)
     end
 
+    it 'can find all invoices by a status' do
+      successful = 0
+
+      invoice_1 = create(:invoice, status: 0)
+      invoice_2 = create(:invoice, status: 0)
+      invoice_3 = create(:invoice, status: 1)
+
+      get "/api/v1/invoices/find_all?status=#{successful}"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+
+      expect(invoices.class).to eq(Array)
+      expect(invoices.count).to eq(2)
+    end
+
     it 'can return a random invoice resource' do
       invoice_1 = create(:invoice)
       invoice_2 = create(:invoice)
