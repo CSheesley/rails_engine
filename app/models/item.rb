@@ -22,12 +22,12 @@ class Item < ApplicationRecord
   end
 
   def best_day
-    Invoice.joins(:invoice_items, :transactions).merge(Transaction.successful)
-      .where("invoice_items.item_id = ?", self.id)
-      .select("invoices.created_at, COUNT(transactions.id) as total")
-      .group(:created_at)
-      .order("total", created_at: "ASC")
-      .first
-      .created_at
+    Invoice.joins(:invoice_items, :transactions)
+    .merge(Transaction.successful)
+    .where("invoice_items.item_id = ?", self.id)
+    .select("invoices.created_at as invoice_date, SUM(invoice_items.quantity) as total")
+    .group(:created_at)
+    .order("total DESC", created_at: "DESC")
+    .limit(1)[0]
   end
 end
