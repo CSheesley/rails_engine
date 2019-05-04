@@ -2,6 +2,41 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :invoices do
+        get 'merchant/show'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      namespace :invoices do
+        get 'customer/show'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      namespace :invoices do
+        get 'items/index'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      namespace :invoices do
+        get 'invoice_items/index'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      namespace :invoices do
+        get 'transactions/index'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       namespace :items do
         get 'best_day/show'
       end
@@ -36,6 +71,11 @@ Rails.application.routes.draw do
         get "/find", to: 'search#show'
         get "/find_all", to: 'search#index'
         get "/random", to: 'random#show'
+        get "/:id/transactions", to: 'transactions#index'
+        get "/:id/invoice_items", to: 'invoice_items#index'
+        get "/:id/items", to: 'items#index'
+        # get "/:id/customer", to: 'customer#show'
+        # get "/:id/merchant", to: 'merchant#show'
       end
       resources :invoices, only: [:index, :show]
 

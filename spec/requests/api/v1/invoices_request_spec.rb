@@ -209,35 +209,54 @@ describe 'invoices API' do
       expect(random_invoices["attributes"].present?).to eq(true)
     end
   end
-  #
-  # context 'relationships' do
-  #   it 'can return a collection of items associated with a invoices' do
-  #     invoices = create(:invoices)
-  #     item_list = create_list(:item, 3, invoices_id: invoices.id)
-  #     other_item = create(:item)
-  #
-  #     get "/api/v1/invoicess/#{invoices.id}/items"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoicess_items = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoicess_items.count).to eq(3)
-  #   end
-  #
-  #   it 'can return a collection of invoices associated with a invoices' do
-  #     invoices = create(:invoices)
-  #     invoice_list = create_list(:invoice, 5, invoices_id: invoices.id)
-  #     other_invoice = create(:item)
-  #
-  #     get "/api/v1/invoicess/#{merchant.id}/invoices"
-  #
-  #     expect(response).to be_successful
-  #
-  #     merchants_invoices = JSON.parse(response.body)["data"]
-  #
-  #     expect(merchants_invoices.count).to eq(5)
-  #   end
-  # end
+
+  context 'relationships' do
+    it 'can return a collection of transactions associated with an invoice' do
+      invoice = create(:invoice)
+      transaction_list = create_list(:transaction, 3, invoice_id: invoice.id)
+      other_transaction = create(:transaction)
+
+      get "/api/v1/invoices/#{invoice.id}/transactions"
+
+      expect(response).to be_successful
+
+      transactions = JSON.parse(response.body)["data"]
+
+      expect(transactions.count).to eq(3)
+    end
+
+    it 'can return a collection of invoice_items associated with a invoice' do
+      invoice = create(:invoice)
+      invoice_items_list = create_list(:invoice_item, 5, invoice_id: invoice.id)
+      other_invoice_item = create(:invoice_item)
+
+      get "/api/v1/invoices/#{invoice.id}/invoice_items"
+
+      expect(response).to be_successful
+
+      invoice_items = JSON.parse(response.body)["data"]
+
+      expect(invoice_items.count).to eq(5)
+    end
+
+    it 'can return a collection of items associated with a invoice' do
+      invoice = create(:invoice)
+
+      item_1 = create(:item)
+      item_2 = create(:item)
+      item_3 = create(:item)
+
+      invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+      invoice_item_2 = create(:invoice_item, invoice_id: invoice.id, item_id: item_2.id)
+
+      get "/api/v1/invoices/#{invoice.id}/items"
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body)["data"]
+
+      expect(items.count).to eq(2)
+    end
+  end
 
 end
