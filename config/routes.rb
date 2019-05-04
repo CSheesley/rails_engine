@@ -2,48 +2,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      namespace :transactions do
-        get 'invoice/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :customers do
-        get 'transactions/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :customers do
-        get 'invoices/index'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :items do
-        get 'merchant/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :items do
-        get 'invoice_items/index'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :invoice_items do
-        get 'items/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
 
       namespace :merchants do
         get "/find", to: 'search#show'
@@ -60,6 +18,7 @@ Rails.application.routes.draw do
       resources :merchants, only: [:index, :show]
 
       namespace :customers do
+        get "/find", to: 'search#show'
         get "/find", to: 'search#show'
         get "/find_all", to: 'search#index'
         get "/random", to: 'random#show'
