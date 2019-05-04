@@ -34,7 +34,7 @@ class Merchant < ApplicationRecord
     .merge(Transaction.successful)
     .group(:id)
     .order("total DESC")
-    .take
+    .limit(1)[0]
   end
 
   def total_revenue
