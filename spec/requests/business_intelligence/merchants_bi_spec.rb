@@ -152,15 +152,15 @@ describe 'Single Merchants API - Business Intelligence' do
     expect(merch_revenue["attributes"]["revenue"]).to eq("0.41")
   end
 
-  xit 'can return the merchants favorite customer: most successful transactions with merchants' do
-    # date =
+  it 'can return the merchants favorite customer: most successful transactions with merchants' do
+    id = @merch_1.id
 
-    get "/api/v1/merchants/:id/favorite_customer_of"
+    get "/api/v1/merchants/#{id}/favorite_customer"
 
-    # merch_revenue = JSON.parse(response.body)["data"]
-    #
-    # expect(response).to be_successful
-    # expect(merchants["attributes"]["total_revenue"]).to eq("41.50")
+    customer = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(customer["attributes"]["id"]).to eq(@customer_1.id)
   end
 
 end
