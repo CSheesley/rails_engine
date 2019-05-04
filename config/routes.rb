@@ -2,48 +2,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      namespace :invoices do
-        get 'merchant/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :invoices do
-        get 'customer/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :invoices do
-        get 'items/index'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :invoices do
-        get 'invoice_items/index'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :invoices do
-        get 'transactions/index'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      namespace :items do
-        get 'best_day/show'
-      end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
 
       namespace :merchants do
         get "/find", to: 'search#show'
@@ -64,6 +22,8 @@ Rails.application.routes.draw do
         get "/find_all", to: 'search#index'
         get "/random", to: 'random#show'
         get "/:id/favorite_merchant", to: 'favorite_merchant#show'
+        # get "/:id/invoices", to: 'invoices#index'
+        # get "/:id/transactions", to: 'transactions#index'
       end
       resources :customers, only: [:index, :show]
 
@@ -83,7 +43,21 @@ Rails.application.routes.draw do
         get "/most_revenue", to: 'most_revenue#index'
         get "/most_items", to: 'most_items#index'
         get "/:id/best_day", to: 'best_day#show'
+        # get "/:id/invoice_items", to: 'invoice_items#index'
+        # get "/:id/merchant", to: 'merchant#show'
       end
+      # resources :items, only: [:index, :show]
+
+      namespace :invoice_items do
+        get "/:id/invoice", to: 'invoice#show'
+        get "/:id/item", to: 'item#show'
+      end
+      # resources :invoice_items, only: [:index, :show]
+
+      namespace :transactions do
+        # get "/:id/invoice", to: 'invoice#show'
+      end
+      # resources :transactions, only: [:index, :show]
 
     end
   end
