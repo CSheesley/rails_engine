@@ -5,6 +5,4 @@ class InvoiceItemSerializer
              :item_id,
              :unit_price,
              :quantity
-
-  # belongs_to :item
 end

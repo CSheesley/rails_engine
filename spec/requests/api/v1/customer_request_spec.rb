@@ -184,4 +184,41 @@ describe 'Customer API' do
     end
   end
 
+  context 'relationships' do
+    it 'can return a collection of invoices associated with a customer id' do
+      customer = create(:customer)
+
+      invoice_list = create_list(:invoice, 3, customer_id: customer.id)
+      other_invoice = create(:invoice)
+
+      get "/api/v1/customers/#{customer.id}/invoices"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)["data"]
+
+      expect(invoices.count).to eq(3)
+    end
+
+    it 'can return a collection of transactions associated with a customer id' do
+      customer = create(:customer)
+
+      invoice_1 = create(:invoice, customer_id: customer.id)
+      invoice_2 = create(:invoice, customer_id: customer.id)
+      invoice_3 = create(:invoice)
+
+      transaction_1 = create(:transaction, invoice_id: invoice_1.id)
+      transaction_2 = create(:transaction, invoice_id: invoice_2.id)
+      transaction_3 = create(:transaction)
+
+      get "/api/v1/customers/#{customer.id}/transactions"
+
+      expect(response).to be_successful
+
+      transactions = JSON.parse(response.body)["data"]
+
+      expect(transactions.count).to eq(2)
+    end
+  end
+
 end
