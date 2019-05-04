@@ -2,6 +2,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :items do
+        get 'best_day/show'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
 
       namespace :merchants do
         get "/find", to: 'search#show'
@@ -21,7 +28,7 @@ Rails.application.routes.draw do
         get "/find", to: 'search#show'
         get "/find_all", to: 'search#index'
         get "/random", to: 'random#show'
-       # fav merchant
+        get "/:id/favorite_merchant", to: 'favorite_merchant#show'
       end
       resources :customers, only: [:index, :show]
 
@@ -31,6 +38,12 @@ Rails.application.routes.draw do
         get "/random", to: 'random#show'
       end
       resources :invoices, only: [:index, :show]
+
+      namespace :items do
+        get "/most_revenue", to: 'most_revenue#index'
+        get "/most_items", to: 'most_items#index'
+        get "/:id/best_day", to: 'best_day#show'
+      end
 
     end
   end
