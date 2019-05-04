@@ -2,6 +2,20 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :items do
+        get 'merchant/show'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      namespace :items do
+        get 'invoice_items/index'
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       namespace :invoice_items do
         get 'items/show'
       end
@@ -50,8 +64,8 @@ Rails.application.routes.draw do
         get "/most_revenue", to: 'most_revenue#index'
         get "/most_items", to: 'most_items#index'
         get "/:id/best_day", to: 'best_day#show'
-        # get "/:id/invoice_items", to: 'invoice_items#index'
-        # get "/:id/merchant", to: 'merchant#show'
+        get "/:id/invoice_items", to: 'invoice_items#index'
+        get "/:id/merchant", to: 'merchant#show'
       end
       # resources :items, only: [:index, :show]
 
