@@ -1,22 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Versions:
 
 * Ruby version: 2.4.1
-  Rails version: 5.2.3
-  Database: Postgresql
+* Rails version: 5.2.3
+* Database: Postgresql
 
-* Configuration:
+Configuration:
+
   Clone down this repo to your local machine.
+
   From your command line run:
   `bundle`
   `rake db:{drop,create,migrate}`
 
-  To populate our tables, run:
+  To populate tables, run:
   `rake import:{customer,merchant,invoice,item,invoice_item,transaction}`
+
+  Finally, to pull down a spec harned
+
+
+
 
 * Database creation
 

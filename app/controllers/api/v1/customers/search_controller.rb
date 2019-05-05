@@ -10,10 +10,8 @@ class Api::V1::Customers::SearchController < ApplicationController
   def index
     key = params.keys.first
     value = params.values.first
-    
+
     render json: CustomerSerializer.new(Customer.where(key => value))
   end
-
-
 
 end
