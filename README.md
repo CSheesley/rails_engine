@@ -26,11 +26,11 @@
 
 ### Testing:
 
-  Local Testing
+##### Local Testing
 
   In the `rails_engine` repo, `rspec` is being used to test API responses and JSON output, along with model tests. Simply run `rspec` in your terminal to run all local tests for this repo.
 
-  Spec Harness
+#### Spec Harness
 
   The `spec harness` (details below) was the primary method of testing for this repo. To run the `rails_engine` code base against the `rales_engine_spec_harness`, `cd` into each directory.
 
