@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 describe 'Items API' do
-  # context 'index and show' do
-  #   it 'sends a list of invoices' do
-  #     create_list(:invoice, 3)
-  #
-  #     get "/api/v1/invoices"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoices = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoices.count).to eq(3)
-  #   end
+  context 'index and show' do
+    # it 'sends a list of invoices' do
+    #   create_list(:invoice, 3)
+    #
+    #   get "/api/v1/invoices"
+    #
+    #   expect(response).to be_successful
+    #
+    #   invoices = JSON.parse(response.body)["data"]
+    #
+    #   expect(invoices.count).to eq(3)
+    # end
   #
   #   it 'can get a single invoices by id' do
   #     id = create(:invoice).id
@@ -25,7 +25,7 @@ describe 'Items API' do
   #
   #     expect(invoice["attributes"]["id"]).to eq(id)
   #   end
-  # end
+  end
   #
   # context 'find' do
   #
