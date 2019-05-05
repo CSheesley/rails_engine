@@ -11,24 +11,28 @@
 
 ### Setup and Configuration:
 
-  Clone down this repo to your local machine.
+  Clone down this repo to your local machine:
+  $ git clone `git@github.com:CSheesley/rails_engine.git`
 
   From your command line run:
-  `bundle`
-  `rake db:{drop,create,migrate}`
+  $ `bundle`
+
+  $ `rake db:{drop,create,migrate}`
 
   To populate tables, run:
-  `rake import:{customer,merchant,invoice,item,invoice_item,transaction}`
+  $ `rake import:{customer,merchant,invoice,item,invoice_item,transaction}`
 
-  Finally, in a directory adjacent to the code base that you just cloned, clone the following directory which can be used for testing with a `spec harness`.
-  `https://github.com/turingschool/rales_engine_spec_harness`
+  Finally, in a directory adjacent to the code base that you just cloned - clone the following directory which can be used for testing with a `spec harness`.
+  $ git clone `https://github.com/turingschool/rales_engine_spec_harness`
 
 ### Testing:
 
   Local Testing
+
   In the `rails_engine` repo, `rspec` is being used to test API responses and JSON output, along with model tests. Simply run `rspec` in your terminal to run all local tests for this repo.
 
   Spec Harness
+
   The `spec harness` (details below) was the primary method of testing for this repo. To run the `rails_engine` code base against the `rales_engine_spec_harness`, `cd` into each directory.
 
   From the `rails_engine` directory, run `rails s` in the command line to start the server, which is necessary for the `spec harness` to evaluate endpoints.
