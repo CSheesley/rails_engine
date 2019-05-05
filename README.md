@@ -11,18 +11,17 @@
 
 ### Setup and Configuration:
 
-  Clone down this repo to your local machine:
+  Clone down this repo to your local machine:\
   $ git clone `git@github.com:CSheesley/rails_engine.git`
 
-  From your command line run:
-  $ `bundle`
-
+  From your command line run:\
+  $ `bundle`\
   $ `rake db:{drop,create,migrate}`
 
-  To populate tables, run:
+  To populate tables, run:\
   $ `rake import:{customer,merchant,invoice,item,invoice_item,transaction}`
 
-  Finally, in a directory adjacent to the code base that you just cloned - clone the following directory which can be used for testing with a `spec harness`.
+  Finally, in a directory adjacent to the code base that you just cloned - clone the following directory which can be used for testing with a `spec harness`.\
   $ git clone `https://github.com/turingschool/rales_engine_spec_harness`
 
 ### Testing:
