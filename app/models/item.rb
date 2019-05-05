@@ -21,13 +21,28 @@ class Item < ApplicationRecord
     .limit(quantity)
   end
 
+  def self.find_by_unit_price(key, value)
+    value = value.delete(".").to_i
+    find_by(key => value)
+  end
+
+  def self.where_by_unit_price(key, value)
+    value = value.delete(".").to_i
+    where(key => value)
+  end
+
+  def self.find_first_by_date(key, value)
+    where(key => value).first
+  end
+
   def best_day
-    Invoice.joins(:invoice_items, :transactions)
+    Invoice.select("invoices.created_at as invoice_date, SUM(invoice_items.quantity) as total")
+    .joins(:invoice_items, :transactions)
     .merge(Transaction.successful)
     .where("invoice_items.item_id = ?", self.id)
-    .select("invoices.created_at as invoice_date, SUM(invoice_items.quantity) as total")
     .group(:created_at)
     .order("total DESC", created_at: "DESC")
     .limit(1)[0]
   end
+
 end
