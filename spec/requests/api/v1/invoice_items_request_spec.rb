@@ -79,7 +79,7 @@ describe 'Invoice_Items API' do
     it 'can find a single invoice_item by unit_price param' do
       unit_price_param = "833.63"
       invoice_item = create(:invoice_item, unit_price: 83363)
-  
+
       get "/api/v1/invoice_items/find?unit_price=#{unit_price_param}"
 
       expect(response).to be_successful
@@ -203,75 +203,56 @@ describe 'Invoice_Items API' do
       expect(expected).to eq(invoice_item_1.id)
     end
 
+    it 'can find all invoice items by a created_at param' do
+      created_at_param = "2012-03-27T14:54:05.000Z"
 
+      invoice_item_1 = create(:invoice_item, created_at: created_at_param)
+      invoice_item_2 = create(:invoice_item, created_at: created_at_param)
+      invoice_item_3 = create(:invoice_item)
 
-  #   it 'can find all invoices by a created_at param' do
-  #     created_at_param = "2012-03-27T14:54:05.000Z"
-  #
-  #     invoice_1 = create(:invoice, created_at: created_at_param)
-  #     invoice_2 = create(:invoice, created_at: created_at_param)
-  #     invoice_3 = create(:invoice)
-  #
-  #     get "/api/v1/invoices/find_all?created_at=#{created_at_param}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoicess = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoicess.class).to eq(Array)
-  #     expect(invoicess.count).to eq(2)
-  #   end
-  #
-  #   it 'can find all invoices by a updated_at param' do
-  #     updated_at_param = "2012-03-27T14:54:05.000Z"
-  #
-  #     invoice_1 = create(:invoice, created_at: updated_at_param)
-  #     invoice_2 = create(:invoice, created_at: updated_at_param)
-  #     invoice_3 = create(:invoice)
-  #
-  #     get "/api/v1/invoices/find_all?created_at=#{updated_at_param}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoices = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoices.class).to eq(Array)
-  #     expect(invoices.count).to eq(2)
-  #   end
-  #
-  #   it 'can find all invoices by a status' do
-  #     successful = 0
-  #
-  #     invoice_1 = create(:invoice, status: 0)
-  #     invoice_2 = create(:invoice, status: 0)
-  #     invoice_3 = create(:invoice, status: 1)
-  #
-  #     get "/api/v1/invoices/find_all?status=#{successful}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoices = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoices.class).to eq(Array)
-  #     expect(invoices.count).to eq(2)
-  #   end
-  #
-  #   it 'can return a random invoice resource' do
-  #     invoice_1 = create(:invoice)
-  #     invoice_2 = create(:invoice)
-  #     invoice_3 = create(:invoice)
-  #
-  #     get "/api/v1/invoices/random"
-  #
-  #     expect(response).to be_successful
-  #
-  #     unparsed = JSON.parse(response.body)
-  #     random_invoices = JSON.parse(response.body)["data"]
-  #
-  #     expect(unparsed.count).to eq(1)
-  #     expect(random_invoices.class).to eq(Hash)
-  #     expect(random_invoices["attributes"].present?).to eq(true)
-  #   end
+      get "/api/v1/invoice_items/find_all?created_at=#{created_at_param}"
+
+      expect(response).to be_successful
+
+      invoice_items = JSON.parse(response.body)["data"]
+
+      expect(invoice_items.class).to eq(Array)
+      expect(invoice_items.count).to eq(2)
+    end
+
+    it 'can find all invoice items by a updated_at param' do
+      updated_at_param = "2012-03-27T14:54:05.000Z"
+
+      invoice_item_1 = create(:invoice_item, updated_at: updated_at_param)
+      invoice_item_2 = create(:invoice_item, updated_at: updated_at_param)
+      invoice_item_3 = create(:invoice_item)
+
+      get "/api/v1/invoice_items/find_all?updated_at=#{updated_at_param}"
+
+      expect(response).to be_successful
+
+      invoice_items = JSON.parse(response.body)["data"]
+
+      expect(invoice_items.class).to eq(Array)
+      expect(invoice_items.count).to eq(2)
+    end
+
+    it 'can return a random invoice_item resource' do
+      invoice_item_1 = create(:invoice_item)
+      invoice_item_2 = create(:invoice_item)
+      invoice_item_3 = create(:invoice_item)
+
+      get "/api/v1/invoice_items/random"
+  
+      expect(response).to be_successful
+
+      unparsed = JSON.parse(response.body)
+      random_invoice_items = JSON.parse(response.body)["data"]
+
+      expect(unparsed.count).to eq(1)
+      expect(random_invoice_items.class).to eq(Hash)
+      expect(random_invoice_items["attributes"].present?).to eq(true)
+    end
   end
 
   context 'relationships' do
