@@ -26,7 +26,7 @@
 
 ### Testing:
 
-##### Local Testing
+#### Local Testing
 
   In the `rails_engine` repo, `rspec` is being used to test API responses and JSON output, along with model tests. Simply run `rspec` in your terminal to run all local tests for this repo.
 
