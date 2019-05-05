@@ -21,6 +21,20 @@ class Item < ApplicationRecord
     .limit(quantity)
   end
 
+  def self.find_by_unit_price(key, value)
+    value = value.delete(".").to_i
+    find_by(key => value)
+  end
+
+  def self.where_by_unit_price(key, value)
+    value = value.delete(".").to_i
+    where(key => value)
+  end
+
+  def self.find_first_by_date(key, value)
+    Item.where(key => value).first
+  end
+
   def best_day
     Invoice.joins(:invoice_items, :transactions)
     .merge(Transaction.successful)
@@ -30,4 +44,5 @@ class Item < ApplicationRecord
     .order("total DESC", created_at: "DESC")
     .limit(1)[0]
   end
+
 end

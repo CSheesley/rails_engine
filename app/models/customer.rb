@@ -11,6 +11,6 @@ class Customer < ApplicationRecord
       .merge(Transaction.successful)
       .group(:id)
       .order("total DESC")
-      .take
+      .limit(1)[0]
   end
 end

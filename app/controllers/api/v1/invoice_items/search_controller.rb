@@ -23,19 +23,3 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
   end
 
 end
-
-
-
-# def unit_price_check(key, value)
-#   if key == "unit_price"
-#     value = value.delete(".").to_i
-#   else
-#     key = params.keys.first
-#     value = params.values.first
-#   end
-# end
-
-# def by_unit_price(key, value)
-#   value = value.delete(".").to_i
-#   InvoiceItem.where(key => value)
-# end

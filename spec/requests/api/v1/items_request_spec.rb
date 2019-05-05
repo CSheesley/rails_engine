@@ -2,33 +2,33 @@ require 'rails_helper'
 
 describe 'Items API' do
   context 'index and show' do
-    # it 'sends a list of invoices' do
-    #   create_list(:invoice, 3)
-    #
-    #   get "/api/v1/invoices"
-    #
-    #   expect(response).to be_successful
-    #
-    #   invoices = JSON.parse(response.body)["data"]
-    #
-    #   expect(invoices.count).to eq(3)
-    # end
-  #
-  #   it 'can get a single invoices by id' do
-  #     id = create(:invoice).id
-  #
-  #     get "/api/v1/invoices/#{id}"
-  #
-  #     invoice = JSON.parse(response.body)["data"]
-  #
-  #     expect(response).to be_successful
-  #
-  #     expect(invoice["attributes"]["id"]).to eq(id)
-  #   end
+    it 'sends a list of items' do
+      create_list(:item, 3)
+
+      get "/api/v1/items"
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body)["data"]
+
+      expect(items.count).to eq(3)
+    end
+
+    it 'can get a single items by id' do
+      id = create(:item).id
+
+      get "/api/v1/items/#{id}"
+
+      item = JSON.parse(response.body)["data"]
+
+      expect(response).to be_successful
+
+      expect(item["attributes"]["id"]).to eq(id)
+    end
   end
-  #
-  # context 'find' do
-  #
+
+  context 'find' do
+
   #   it 'can find a single invoice by id param' do
   #     invoice = create(:invoice)
   #
@@ -63,31 +63,33 @@ describe 'Items API' do
   #     invoice_resp = JSON.parse(response.body)["data"]
   #     expect(invoice_resp["attributes"]["id"]).to eq(invoice.id)
   #   end
-  #
-  #   it 'can find a single invoices by date created at' do
-  #     invoice = create(:invoice, created_at: "2012-03-27T14:54:05.000Z")
-  #
-  #     get "/api/v1/invoices/find?created_at=#{invoice.created_at}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoice_resp = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoice_resp["attributes"]["id"]).to eq(invoice.id)
-  #   end
-  #
-  #   it 'can find a single invoices by date updated at' do
-  #     invoice = create(:invoice, updated_at: "2012-03-27T14:54:05.000Z")
-  #
-  #     get "/api/v1/invoices/find?updated_at=#{invoice.updated_at}"
-  #
-  #     expect(response).to be_successful
-  #
-  #     invoice_resp = JSON.parse(response.body)["data"]
-  #
-  #     expect(invoice_resp["attributes"]["id"]).to eq(invoice.id)
-  #   end
-  # end
+
+    it 'can find the first item by date created at' do
+      item_1 = create(:item, created_at: "2012-03-27T14:54:05.000Z")
+      item_2 = create(:item, created_at: "2012-03-27T14:55:05.000Z")
+      item_3 = create(:item, created_at: "2012-03-27T14:56:05.000Z")
+
+      get "/api/v1/items/find?created_at=#{item_1.created_at}"
+
+      expect(response).to be_successful
+
+      item_resp = JSON.parse(response.body)["data"]
+
+      expect(item_resp["attributes"]["id"]).to eq(item_1.id)
+    end
+
+    it 'can find a single items by date updated at' do
+      item = create(:item, updated_at: "2012-03-27T14:54:05.000Z")
+
+      get "/api/v1/items/find?updated_at=#{item.updated_at}"
+
+      expect(response).to be_successful
+
+      item_resp = JSON.parse(response.body)["data"]
+
+      expect(item_resp["attributes"]["id"]).to eq(item.id)
+    end
+  end
   #
   # context 'find_all' do
   #   it 'can find all invoices by id param' do
