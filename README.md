@@ -32,7 +32,7 @@
 
 #### Spec Harness
 
-  The `spec harness` (details below) was the primary method of testing for this repo. To run the `rails_engine` code base against the `rales_engine_spec_harness`, `cd` into each directory.
+  The `spec harness` was the primary method of testing for this repo. To run the `rails_engine` code base against the `rales_engine_spec_harness`, `cd` into each directory.
 
   From the `rails_engine` directory, run `rails s` in the command line to start the server, which is necessary for the `spec harness` to evaluate endpoints.
 
